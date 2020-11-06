@@ -1,0 +1,24 @@
+<div my-app>
+  <button (mouseup)="reset$.next(true)">
+    Refresh
+  </button>
+
+  <ng-container *ngIf="polling; else noPoll">
+    <button (mouseup)="paused ? reset$.next() : pause$.next()">
+      {{ paused ? 'Resume refresh (' + (counter | toString) + 's)' : 'Pause
+      refresh (' + (counter | toString) + 's)' }}
+    </button>
+  </ng-container>
+
+  <ng-template #noPoll>
+    <button (mouseup)="reset$.next()">
+      Auto Refresh ({{ counter-1 }}s)
+    </button>
+  </ng-template>
+
+  <ng-container *ngIf="res">
+    <br />
+    Response:
+    <pre>{{ res | json }}</pre>
+  </ng-container>
+</div>
